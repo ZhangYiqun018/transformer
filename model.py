@@ -134,7 +134,8 @@ if __name__ == '__main__':
     batch_size = 64
     input_dim = embedding_dim = 128
     pad = 0
-    # hidden_dim = 150
+    hidden_dim = 256
+    # last_hidden_dim = 1100
     output_dim = 6
     learn_rate = 1e-3
     epochs = 100
