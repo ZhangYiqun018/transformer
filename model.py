@@ -26,7 +26,7 @@ class Model(nn.Module):
         self.fc = nn.Linear(max_len * input_dim, 6)
         self.softmax = nn.Softmax(dim=-1)
     def forward(self, x):
-        x = self.embedding(x) + self.positional()
+        x = self.embedding(x) + self.positional().to(device)
         x = x.to(torch.float32)
         x = self.encoder(x)
         x = x.view(x.size(0), -1)
@@ -131,17 +131,17 @@ def getTrain():
 
 if __name__ == '__main__':
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-    batch_size = 32
-    input_dim = embedding_dim = 256
+    batch_size = 64
+    input_dim = embedding_dim = 128
     pad = 0
-    hidden_dim = 150
+    # hidden_dim = 150
     output_dim = 6
-    learn_rate = 3e-4
-    epochs = 10000
-    num_layers = 1
+    learn_rate = 1e-3
+    epochs = 100
+    num_layers = 2
     p_drop = 0.4
-    max_len = 120
-    heads_num = 4
+    max_len = 100
+    heads_num = 8
 
     train_data, valid_data, vocab_size, word2num = getTrain()
     train_data = DataLoader(train_data, batch_size=batch_size, shuffle=True, collate_fn=my_collate)
